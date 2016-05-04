@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
+<meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
 	<body>
 		hello world !
-		<div ng-controller="myController as myCtrl">
-			<ul>
-				<li>
-					{{myCtrl.user.name}}
-				</li>
-			</ul>
-		</div>
+		<ul ng-controller="myController as myCtrl">
+			<li>
+				<h3>
+					<em>{{myCtrl.user.name}}</em>
+				</h3>
+			</li>
+		</ul>
+		<button type="button" class="btn btn-primary-outline">Le succès mon gars</button>
 		<script src="angular.min.js"></script>
 		<script src="script.js"></script>
 	</body>
