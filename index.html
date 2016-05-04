@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+</head>
+
 	<body>
 		hello world !
-		<ul ng-controller="myController as myCtrl">
-			<li>
-				<h3>
-					<em>{{myCtrl.user.name}}</em>
-				</h3>
-			</li>
-		</ul>
-		<button type="button" class="btn btn-primary-outline">Le succès mon gars</button>
+
+		<div class="col-md-8">
+			<ul ng-controller="myController as myCtrl" class="container-fluid">
+				<li>
+					<h3>
+						<em>{{myCtrl.user.name}}</em>
+					</h3>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary">Primary</button>
+			<button type="button" class="btn btn-success">Le succès mon gars</button>
+
+		</div>
+
 		<script src="angular.min.js"></script>
 		<script src="script.js"></script>
 	</body>
+
 </html>
