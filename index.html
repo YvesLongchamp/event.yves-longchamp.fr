@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<body>
+		hello world !
+		<div ng-controller="myController as myCtrl">
+			<ul>
+				<li>
+					{{myCtrl.user.name}}
+				</li>
+			</ul>
+		</div>
+		<script src="angular.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>
