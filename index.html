@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
 </head>
-
 	<body>
 
 		<div class="jumbotron-fluid">
@@ -14,9 +13,11 @@
 			<p class="lead">Petit paragraphe en dessous.</p>
 		</div>
 
-		<div class="container-fluid">
+		<div class="container-fluid" ng-controller="myController as ctrl">
 			Le container
+			
 			<div class="row">
+				
 				<div class="col-xs-4">
 					<h3>Première colonne</h3>
 					<button type="button" class="btn btn-primary">
@@ -34,14 +35,18 @@
 				
 				<div class="col-xs-4">
 					<h3>Troisième colonne</h3>
-					<button type="button" class="btn btn-warning">Bouton de danger</button>
-					<p>Je ne connais pas la suite de la chanson.</p>
+					<table>
+  						<tr ng-repeat="x in users_DB">
+   					 		<td>{{x.pseudo}}</td>
+    						<td>{{x.firstname}}</td>
+  						</tr>
+					</table>
 				</div>
 			</div>
 			
 		</div>
-
-		<script src="angular.min.js"></script>
+		<!-- Laisser les scripts charger à la fin pour la mémoire, éviter de surcharger.-->
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 		<script src="script.js"></script>
 
 	</body>
