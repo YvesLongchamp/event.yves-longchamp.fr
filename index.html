@@ -1,33 +1,49 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html ng-app="myApp" lang="fr">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
 </head>
 
 	<body>
-		hello world !
 
-		<div class="col-md-8">
-			<ul ng-controller="myController as myCtrl" class="container-fluid">
-				<li>
-					<h3>
-						<em>{{myCtrl.user.name}}</em>
-					</h3>
-				</li>
-			</ul>
+		<div class="jumbotron-fluid">
+			<h1 class="display-1">Titre en gros.</h1>
+			<p class="lead">Petit paragraphe en dessous.</p>
 		</div>
 
-		<div class="col-md-4">
-			<button type="button" class="btn btn-primary">Primary</button>
-			<button type="button" class="btn btn-success">Le succès mon gars</button>
+		<div class="container-fluid">
+			Le container
+			<div class="row">
+				<div class="col-xs-4">
+					<h3>Première colonne</h3>
+					<button type="button" class="btn btn-primary">
+						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Bouton principal
+					</button>
+					<p>Petit portoricaiiin.</p>
+				</div>
 
+				<div class="col-xs-4">
+					<h3>Deuxième colonne</h3>
+					<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 
+						Bouton de succès</button>
+					<p>De l'autre côté de la meeeer.</p>
+				</div>
+				
+				<div class="col-xs-4">
+					<h3>Troisième colonne</h3>
+					<button type="button" class="btn btn-warning">Bouton de danger</button>
+					<p>Je ne connais pas la suite de la chanson.</p>
+				</div>
+			</div>
+			
 		</div>
 
 		<script src="angular.min.js"></script>
 		<script src="script.js"></script>
+
 	</body>
 
 </html>
