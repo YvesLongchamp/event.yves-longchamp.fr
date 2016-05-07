@@ -1,0 +1,33 @@
+<html ng-app="myApp" lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="form.css">
+</head>
+
+<body>
+
+	<div class="container-fluid">
+
+		<form name="newUser" class="form-user" ng-controller="putController as putCtrl"  ng-submit="postOnDatabase()">
+
+			<p>Pseudo : <input name="newPseudo" type="text" ng-model="formType.pseudo" required></p>
+			
+			<p>Email : <input name="newEmail" type="email" ng-model="formType.email" required></p>
+			
+			<p>Firstname : <input name="newFirstname" type="text" ng-model="formType.firstname"></p>
+
+			<p>Lastname : <input name="newLastname" type="text" ng-model="formType.lastname"></p>
+
+			<button class="btn btn-success"><span class="glyphicon glyphicon-plus"> Submit</span></button>
+		</form>
+
+	</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="script.js"></script>
+</body>
+
+</html>
