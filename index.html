@@ -17,7 +17,7 @@
 			Le container
 			
 			<div class="row">
-				
+				<!-- Inscription -->
 				<div class="col-xs-4">
 					<h3>Première colonne</h3>
 					<a href="formToNewUser.html" class="btn btn-primary">
@@ -25,14 +25,14 @@
 						 Bouton inscription</a>
 					<p>Petit portoricaiiin.</p>
 				</div>
-
+				<!-- Un autre bouton/lien -->
 				<div class="col-xs-4">
 					<h3>Deuxième colonne</h3>
-					<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 
-						Bouton de succès</button>
+					<a href="http://z0r.de/72" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 
+						72 ( ͡° ͜ʖ ͡°)</a>
 					<p>De l'autre côté de la meeeer.</p>
 				</div>
-				
+				<!-- Affichage pour tester -->
 				<div class="col-xs-4">
 					<h3>Troisième colonne</h3>
 					<ul ng-repeat="x in users_DB">
@@ -40,7 +40,7 @@
    					 		{{x.pseudo}}
    					 	</li>
    					 	<li>
-    						{{x.firstname}}
+    						{{x.email}}
   						</li>
 					</ul>
 				</div>

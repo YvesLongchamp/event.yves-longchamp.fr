@@ -16,9 +16,10 @@
 		};
 
 		$scope.postOnDatabase = function() {
-			$http.post("postSQL.php",{$scope.formType.pseudo,$scope.formType.firstname, $scope.formType.lastname, $scope.formType.email,10,10})
+			$http.post("postSQL.php",{pseudo : $scope.formType.pseudo,email : $scope.formType.email})
         	.success(function(data, status, headers, config){
-            	console.log("inserted Successfully");});
+            	console.log("inserted Successfully");
+            });
 		};
 
 	});

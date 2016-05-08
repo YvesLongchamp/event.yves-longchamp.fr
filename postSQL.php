@@ -1,28 +1,33 @@
 <?php
 
-class TableRows extends RecursiveIteratorIterator { 
-    function __construct($it) { 
-        parent::__construct($it, self::LEAVES_ONLY); 
-    }
-} 
+// getting the data from angular.
+    $postdata = file_get_contents("php://input");
+    $parameters = json_decode($postdata);
+    $pseudo = $parameters->pseudo;
+    $email = $parameters->email;
 
 $servername = "db624774209.db.1and1.com";
 $database   = "db624774209";
 $username = "dbo624774209";
-$password = "Not my password D:";
+$password = "not my password D:";
 try {
+    // connection
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT * FROM users"); 
-    $stmt->execute();
 
-    // set the resulting array to associative
-    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    echo json_encode($stmt->fetchAll());
+    // request
+    $request = $conn->prepare('INSERT INTO users(pseudo, email) VALUES (:pseudo, :email)')
+    or exit(print_r($conn->errorInfo())); 
+
+    $request->execute(array(
+        'pseudo' => $pseudo,
+        'email' => $email
+        ));
+    echo "Changes have been done successfully.";
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
-echo $results;
+print_r($conn->errorInfo());
 $conn = null;
 ?>
