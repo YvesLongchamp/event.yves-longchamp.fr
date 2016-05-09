@@ -7,7 +7,7 @@
 
 	});
 
-	app.controller('putController', ['$scope','$http',function($scope, $http) {
+	app.controller('putController', ['$scope',function($scope, $http) {
 		$scope.formType = {
 			pseudo: "",
 			password: "",

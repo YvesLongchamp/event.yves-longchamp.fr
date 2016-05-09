@@ -11,7 +11,7 @@
 
 	<div class="container-fluid col-xs-6" ng-controller="putController as putCtrl">
 
-		<form name="form" ng-submit="putOnDatabase()" role="form">
+		<form name="form" ng-submit="form.$valid && putOnDatabase()" role="form">
 
         <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
             <label for="pseudo">Username</label>
