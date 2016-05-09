@@ -11,19 +11,18 @@
 		$scope.formType = {
 			pseudo: "",
 			password: "",
-			email: "",
+			email: ""
 		};
-		$scope.postOnDatabase = function() {
-		console.log("debug1");
+		this.postOnDatabase = function() {
+			console.log($scope.formType);
 		    $http.post("postSQL.php",{pseudo : $scope.formType.pseudo, email : $scope.formType.email, password : $scope.formType.password})
         	.then(
-		    function (response) {
-            		console.log("inserted Successfully");
-		    },
-		    function(response) {
-			console.log("There is a problem D:");
-		    }
-		);
+        		function succesCallBack(response) {
+        			console.log("Inserted successfully.");
+        		}
+        		,function errorCallBack(response){
+        			console.log("Something went bad :(");
+        		});
    		$scope.formType = {};
 		};	
 

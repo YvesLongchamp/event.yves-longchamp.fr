@@ -16,17 +16,14 @@ try {
     // connection
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $passwordDB);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connection";
     // request
     $request = $conn->prepare('INSERT INTO users(pseudo,email,password) VALUES (:pseudo, :email, :password)')
     or exit(print_r($conn->errorInfo())); 
-    echo "Avant execute";
     $request->execute(array(
         'pseudo' => $pseudo,
         'email' => $email,
         'password' => $passhash
         ));
-    echo "Changes have been done successfully.";
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
