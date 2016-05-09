@@ -13,9 +13,22 @@
 
 		<form name="newUser" class="form-user" ng-controller="putController as putCtrl"  ng-submit="postOnDatabase()">
 
-			<p>Pseudo : <input name="newPseudo" type="text" ng-model="formType.pseudo" required></p>
+			<label for="newPseudo">Pseudo : </label>
+			<input name="newPseudo" type="text" ng-model="formType.pseudo" required/>
+			<div ng-messages="newUser.pseudo.$error" ng-messages-include="messages.html"></div>
 			
-			<p>Email : <input name="newEmail" type="email" ng-model="formType.email" required></p>
+			<label for="newEmail">Email : </label>
+			<input name="newEmail" type="email" ng-model="formType.email" required/>
+			<div ng-messages="newUser.email.$error" ng-messages-include="messages.html"></div>
+
+			<label for="newPassword">Password : </label>
+			<input name="newPassword" type="password" ng-model="formType.password" required/>
+			<div ng-messages="newUser.password.$error" ng-messages-include="messages.html"></div>
+
+
+			<label for="confirmPassword">Confirm password : </label>
+			<input name="confirmPassword" type="password" ng-model="formType.passwordConfirm" required compare-to="formType.password"/>
+			<div ng-messages="newUser.passwordConfirm.$error" ng-messages-include="messages.html"></div>
 
 			<button class="btn btn-success"><span class="glyphicon glyphicon-plus"> Submit</span></button>
 		</form>

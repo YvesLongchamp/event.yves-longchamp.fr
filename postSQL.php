@@ -5,23 +5,27 @@
     $parameters = json_decode($postdata);
     $pseudo = $parameters->pseudo;
     $email = $parameters->email;
+    $password = $parameters->password;
+    $passhash = password_hash($password, PASSWORD_BCRYPT);
+
 
 $servername = "db624774209.db.1and1.com";
 $database   = "db624774209";
 $username = "dbo624774209";
-$password = "not my password D:";
+$passwordDB = "not my password D:";
 try {
     // connection
-    $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $passwordDB);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // request
-    $request = $conn->prepare('INSERT INTO users(pseudo, email) VALUES (:pseudo, :email)')
+    $request = $conn->prepare('INSERT INTO users(pseudo, email,password) VALUES (:pseudo, :email, :password)')
     or exit(print_r($conn->errorInfo())); 
 
     $request->execute(array(
         'pseudo' => $pseudo,
-        'email' => $email
+        'email' => $email,
+        'password' => $passhash
         ));
     echo "Changes have been done successfully.";
 }
