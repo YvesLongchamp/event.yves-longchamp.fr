@@ -6,45 +6,76 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="form.css">
+    <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
 </head>
 
 <body>
 
-	<div class="container-fluid col-xs-6" ng-controller="putController as putCtrl">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Home</a>
+            </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="events.html">Events<span class="sr-only">(current)</span></a></li>
+                    <li><a href="http://z0r.de/72">Drop da link</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="formToNewUser.html"><span class="glyphicon glyphicon-plus"></span> Sign up</a></li>
+                    <li><a href="login.html"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+	<div class="jumbotron" ng-controller="putController as putCtrl">
+    <div class="row">
+    <div class="col-xs-6 col-xs-offset-3 panel panel-default">
 
 		<form name="form" ng-submit="putCtrl.postOnDatabase()" role="form">
 
-        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-            <label for="pseudo">Username</label>
-            <input type="text" name="pseudo" id="pseudo" class="form-control" ng-model="formType.pseudo" required />
-            <span ng-show="form.pseudo.$dirty && form.pseudo.$error.required" class="help-block">Username is required</span>
-        </div>
+            <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                <label for="pseudo">Username</label>
+                <input type="text" name="pseudo" id="pseudo" class="form-control" ng-model="formType.pseudo" required />
+                <span ng-show="form.pseudo.$dirty && form.pseudo.$error.required" class="help-block">Username is required</span>
+            </div>
 
-        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" ng-model="formType.password" required />
-            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
-        </div>
+            <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control" ng-model="formType.password" required />
+                <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+            </div>
 
-	<div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
-            <label for="email">email</label>
-            <input type="email" name="email" id="email" class="form-control" ng-model="formType.email" required />
-            <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">email is required</span>
-        </div>
+            <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                <label for="email">email</label>
+                <input type="email" name="email" id="email" class="form-control" ng-model="formType.email" required />
+                <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">email is required</span>
+            </div>
 
-        <div class="form-actions">
-            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Register</button>
-           
-        </div>
+            <div class="form-actions">
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Register</button>
+                <a href="index.html" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Cancel</a>
+            </div>
+
     </form>
 
-		<a href="index.html" class="btn btn-primary">
-		<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-		 Return to index</a>
+    </div>
+    </div>
 	</div>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	<script src="script.js"></script>
+	<script src="js/script.js"></script>
 </body>
 
 </html>
