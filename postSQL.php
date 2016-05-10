@@ -1,7 +1,7 @@
 <?php
 // getting the data from angular.
     $postdata = file_get_contents("php://input");
-    $parameters = json_decode($postdata);
+    $parameters = json_decode($postdata,true);
     $pseudo = $parameters->pseudo;
     $email = $parameters->email;
     $password = $parameters->password;
