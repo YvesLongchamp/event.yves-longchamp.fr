@@ -2,8 +2,8 @@
 // getting the data from angular.
     $postdata = file_get_contents("php://input");
     $parameters = json_decode($postdata,true);
-    $pseudo = $parameters->pseudo;
-    $password = $parameters->password;
+    $pseudo = $parameters["pseudo"];
+    $password = $parameters["password"];
     
 
 // connexion data
@@ -27,7 +27,7 @@ try {
     // check
     $test = $request->fetchAll();
     $testHash = $test[0][password];
-    //echo (password_verify($password, $testHash) ? 'true' : 'false');
+    echo (password_verify($password, $testHash) ? 'true' : 'false');
 
 
 }
