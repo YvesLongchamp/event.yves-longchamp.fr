@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="form.css">
+	<link rel="stylesheet" type="text/css" href="CSS/form.css">
     <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
 </head>
 
@@ -40,9 +40,9 @@
     
     <div class="jumbotron">
         <div class="row">
-            <div class="col-xs-6 col-xs-offset-3 panel panel-default" ng-controller="putController as putCtrl">
+            <div class="col-xs-6 col-xs-offset-3 panel panel-default" ng-controller="postController as postCtrl">
 
-		<form name="loginIn" ng-submit="putCtrl.login()" role="form">
+		<form name="loginIn" ng-submit="postCtrl.login()" role="form">
 
             <div class="form-group" ng-class="{ 'has-error': loginIn.pseudo.$dirty && loginIn.pseudo.$error.required }">
                 <label for="pseudo">Username</label>
@@ -68,11 +68,12 @@
             </div>
 
         </form>
-        <div> THE ANSWER {{reponse}} </div>
 	       </div>
         </div>
     </div>
+
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
 	<script src="js/script.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script> <!-- Only to let bootstrap be responsive. -->
     <script src="js/bootstrap.min.js"></script>

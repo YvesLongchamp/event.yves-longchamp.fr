@@ -9,7 +9,7 @@ class TableRows extends RecursiveIteratorIterator {
 $servername = "db624774209.db.1and1.com";
 $database   = "db624774209";
 $username = "dbo624774209";
-$password = "not my password D:";
+$password = "loliBanane72";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

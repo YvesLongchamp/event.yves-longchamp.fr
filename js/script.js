@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('myApp', []);
+	var app = angular.module('myApp', ['ngCookies']);
 
 	app.controller('getController', function($scope, $http) {
 		$http.get("../PHP/getUsersSQL.php")
@@ -7,7 +7,7 @@
 
 	});
 
-	app.controller('putController', ['$scope','$http',function($scope, $http) {
+	app.controller('postController', ['$scope','$http','$window','$cookies',function($scope, $http, $window,$cookies) {
 		$scope.formType = {
 			pseudo : "",
 			email : "",
@@ -32,19 +32,34 @@
 		};
 		
 		this.login = function() {
-			console.log("function called.");
-			console.log($scope.logType);
 			$http.post("../PHP/checkingSQL.php",$scope.logType)
 			.then(
 				function succesCallBack(response){
-					console.log(response);
 					$scope.reponse = response.data;
+					if($scope.reponse === "true") {
+						$cookies.put("AOYBBTU",$scope.logType.pseudo,new Date());
+						$window.location.href = "index.html";
+					} else {
+						$window.alert("Bad IDs");
+						$scope.logType.password = "";
+					}
 				}
 				,function errorCallBack(response){
 					console.log("Bad.");
 				});
-			//$scope.logType.password = "";
 		};	
 
+	}]);
+
+	app.controller('cookieController', ['$scope','$cookies', function($scope, $cookies) {
+		$scope.cookieUser = {};
+		this.checkTheCookie = function() {
+			$scope.cookieUser.key = $cookies.get("AOYBBTU");
+			if($scope.cookieUser != "") {
+				$scope.cookieUser.val = true;
+			} else {
+				$scope.cookieUser.val = false;
+			}
+		}
 	}]);
 })();

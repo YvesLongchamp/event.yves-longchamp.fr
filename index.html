@@ -9,7 +9,7 @@
 </head>
 	<body>
 
-    	<nav class="navbar navbar-default">
+    	<nav class="navbar navbar-default" ng-controller="cookieController as cookieCtrl">
         	<div class="container-fluid">
         	<!-- Brand and toggle get grouped for better mobile display -->
             	<div class="navbar-header">
@@ -28,9 +28,13 @@
                     <li><a href="events.html">Events<span class="sr-only">(current)</span></a></li>
                     <li><a href="http://z0r.de/72">Drop da link</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" ng-show="!cookieCtrl.checkTheCookie()">
                     <li><a href="formToNewUser.html"><span class="glyphicon glyphicon-plus"></span> Sign up</a></li>
                     <li><a href="login.html"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                	</ul>
+                <ul class="nav navbar-nav navbar-right" ng-show="cookieCtrl.checkTheCookie()">
+                    <li>{{cookieUser.pseudo}} </li>
+                    <li>Logout</li>
                 	</ul>
             	</div><!-- /.navbar-collapse -->
         	</div><!-- /.container-fluid -->
@@ -77,6 +81,7 @@
 		</div>
 		<!-- Laisser les scripts charger à la fin pour la mémoire, éviter de surcharger.-->
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
 		<script src="js/script.js"></script>
 		<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script> <!-- Only to let bootstrap be responsive. -->
 		<script src="js/bootstrap.min.js"></script>
