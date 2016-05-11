@@ -2,11 +2,20 @@
 <html ng-app="myApp" lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="CSS/form.css">
+    <!-- Metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="CSS/form.css">
     <link rel="stylesheet" type="text/css" href="CSS/navbar.css">
+
+    <!-- Scripts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
+    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script> <!-- Only to let bootstrap be responsive. -->
+    <script src="js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -56,10 +65,6 @@
                 <span ng-show="loginIn.password.$dirty && loginIn.password.$error.required" class="help-block">Password is required</span>
             </div>
 
-            <div class="checkbox">
-        	   <label for="rememberMe"><input type="checkbox" value=""></input>Remember Me !</label>
-            </div>
-
             <div class="form-actions">
                 <button type="submit" ng-disabled="loginIn.$invalid" class="btn btn-success">Login </button>
                 <a href="index.html" class="btn btn-primary">
@@ -72,11 +77,6 @@
         </div>
     </div>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
-	<script src="js/script.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script> <!-- Only to let bootstrap be responsive. -->
-    <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>

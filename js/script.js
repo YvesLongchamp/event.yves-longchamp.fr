@@ -15,7 +15,8 @@
 		};
 		$scope.logType = {
 			pseudo : "",
-			password : ""
+			password : "",
+			rememberCheck : "false"
 		};
 		$scope.reponse = "rien";
 		
@@ -24,11 +25,13 @@
         	.then(
         		function succesCallBack(response) {
         			console.log("Inserted successfully :)");
+   					$scope.formType = {};        			
+        			$window.location.href = "index.html";
         		}
         		,function errorCallBack(response){
         			console.log("Something went bad :(");
         		});
-   		$scope.formType = {};
+
 		};
 		
 		this.login = function() {
@@ -37,10 +40,9 @@
 				function succesCallBack(response){
 					$scope.reponse = response.data;
 					if($scope.reponse === "true") {
-						$cookies.put("AOYBBTU",$scope.logType.pseudo,new Date());
 						$window.location.href = "index.html";
 					} else {
-						$window.alert("Bad IDs");
+						$window.alert("Bad credentials");
 						$scope.logType.password = "";
 					}
 				}
@@ -49,17 +51,29 @@
 				});
 		};	
 
+
+
 	}]);
 
-	app.controller('cookieController', ['$scope','$cookies', function($scope, $cookies) {
-		$scope.cookieUser = {};
+	app.controller('cookieController', ['$scope','$cookies','$window', function($scope, $cookies, $window) {
+		$scope.cookieUser = {
+			val : false,
+			pseudo : ""
+		};
 		this.checkTheCookie = function() {
-			$scope.cookieUser.key = $cookies.get("AOYBBTU");
-			if($scope.cookieUser != "") {
+			$scope.cookieUser.pseudo = $cookies.get("AYBABTU");
+			if(angular.isDefined($scope.cookieUser.pseudo)) {
 				$scope.cookieUser.val = true;
 			} else {
 				$scope.cookieUser.val = false;
 			}
-		}
+		};
+		this.checkTheCookie();
+
+		this.logout = function() {
+			$cookies.remove("AYBABTU");
+			$window.alert("You've been disconnected.");
+			this.checkTheCookie();
+		};
 	}]);
 })();

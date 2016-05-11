@@ -27,7 +27,12 @@ try {
     // check
     $test = $request->fetchAll();
     $testHash = $test[0][password];
-    echo (password_verify($password, $testHash) ? 'true' : 'false');
+    if (password_verify($password, $testHash)) {
+        setcookie("AYBABTU",$pseudo, time() +3600, "/");
+        echo("true");
+    } else {
+        echo("false");
+    }
 
 
 }
