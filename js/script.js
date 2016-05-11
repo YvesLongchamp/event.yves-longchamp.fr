@@ -8,8 +8,16 @@
 	});
 
 	app.controller('putController', ['$scope','$http',function($scope, $http) {
-		$scope.formType = {};
-		$scope.logType = {};
+		$scope.formType = {
+			pseudo : "",
+			email : "",
+			password : ""
+		};
+		$scope.logType = {
+			pseudo : "",
+			password : ""
+		};
+		$scope.reponse = "rien";
 		
 		this.postOnDatabase = function() {
 		    $http.post("../PHP/postSQL.php",$scope.formType)
@@ -30,11 +38,12 @@
 			.then(
 				function succesCallBack(response){
 					console.log(response);
+					$scope.reponse = response.data;
 				}
 				,function errorCallBack(response){
 					console.log("Bad.");
 				});
-			$scope.logType.password = "";
+			//$scope.logType.password = "";
 		};	
 
 	}]);

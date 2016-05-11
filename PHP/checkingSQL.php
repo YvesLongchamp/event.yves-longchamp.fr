@@ -4,12 +4,13 @@
     $parameters = json_decode($postdata,true);
     $pseudo = $parameters->pseudo;
     $password = $parameters->password;
+    
 
 // connexion data
 $servername = "db624774209.db.1and1.com";
 $database   = "db624774209";
 $username = "dbo624774209";
-$passwordDB = "";
+$passwordDB = "loliBanane72";
 try {
     
     // connexion
@@ -26,7 +27,7 @@ try {
     // check
     $test = $request->fetchAll();
     $testHash = $test[0][password];
-    echo (password_verify($password, $testHash) ? 'true' : 'false');
+    //echo (password_verify($password, $testHash) ? 'true' : 'false');
 
 
 }
