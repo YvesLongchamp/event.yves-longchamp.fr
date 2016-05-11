@@ -1,11 +1,19 @@
 (function() {
 	var app = angular.module('myApp', ['ngCookies']);
 
-	app.controller('getController', function($scope, $http) {
+	app.controller('getUsersController', [ '$scope', '$http', function($scope, $http) {
 		$http.get("../PHP/getUsersSQL.php")
-    	.then(function (response) {$scope.users_DB = response.data;});
+		.then(function (response) {
+			$scope.users_DB = response.data;
+		});
+	}]);
 
-	});
+	app.controller('getEventsController', [ '$scope', '$http', function($scope, $http) {
+		$http.get("../PHP/getEventsSQL.php")
+		.then(function (response) {
+			$scope.events_DB = response.data;
+		});
+	}]);
 
 	app.controller('postController', ['$scope','$http','$window','$cookies',function($scope, $http, $window,$cookies) {
 		$scope.formType = {

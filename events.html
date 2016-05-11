@@ -46,14 +46,41 @@
   		</div><!-- /.container-fluid -->
 	</nav>
 	<div>
+
+    <div class="table-responsive" ng-controller="getEventsController as getEventsCtrl">          
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Number of attendees</th>
+          <th>When ?</th>
+          <th>Where ?</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="x in events_DB">
+          <td>{{x.name}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td> {{x.description}} </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
 		<!-- Evènements du joueur en question, ajout d'évènements, se retirer d'un évènement.
+
+    Selection : $cookie.get("AYBABTU")
 		Action à faire pour afficher : SELECT event_id FROM engage WHERE id = (SELECT id FROM users WHERE cookie.password = password);
 		Action à faire pour supprimer : DELETE FROM engage where id = (SELECT id FROM users WHERE cookie.password = password);
 		Si administrateur d'un event : Consulter les joueurs qui participent, pouvoir rendre important un membre...
 
 		 -->
 	</div>
-  
+
 </body>
 
 </html>

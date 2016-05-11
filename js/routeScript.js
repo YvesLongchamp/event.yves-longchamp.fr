@@ -6,35 +6,35 @@ angular.module('ngRouteUser', ['ngRoute'])
      $scope.$routeParams = $routeParams;
  })
 
- .controller('BookController', function($scope, $routeParams) {
-     $scope.name = "BookController";
+ .controller('eventsController', function($scope, $routeParams) {
+     $scope.name = "eventsController";
      $scope.params = $routeParams;
  })
 
- .controller('ChapterController', function($scope, $routeParams) {
-     $scope.name = "ChapterController";
+ .controller('engageController', function($scope, $routeParams) {
+     $scope.name = "engageController";
      $scope.params = $routeParams;
  })
 
 .config(function($routeProvider, $locationProvider) {
   $routeProvider
-   .when('/Book/:bookId', {
-    templateUrl: 'book.html',
-    controller: 'BookController',
+   .when('/events/:eventID', {
+    templateUrl: 'event.html',
+    controller: 'eventsController',
     resolve: {
-      // I will cause a 1 second delay
+     
       delay: function($q, $timeout) {
         var delay = $q.defer();
-        $timeout(delay.resolve, 1000);
+        $timeout(delay.resolve, 1000);// <=> 1 sec of delay.
         return delay.promise;
       }
     }
   })
-  .when('/Book/:bookId/ch/:chapterId', {
-    templateUrl: 'chapter.html',
-    controller: 'ChapterController'
+  .when('/Book/:bookId/ch/:engageId', {
+    templateUrl: 'engage.html',
+    controller: 'engageController'
   });
 
-  // configure html5 to get links working on jsfiddle
+  // configure html5 to get links working on jsfiddle.
   $locationProvider.html5Mode(true);
 });

@@ -7,10 +7,10 @@
     
 
 // connexion data
-$servername = "db624774209.db.1and1.com";
-$database   = "db624774209";
-$username = "dbo624774209";
-$passwordDB = "loliBanane72";
+    $servername = "db624774209.db.1and1.com";
+    $database   = "db624774209";
+    $username = "dbo624774209";
+    $passwordDB = "loliBanane72";
 try {
     
     // connexion
