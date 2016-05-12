@@ -1,20 +1,31 @@
 (function() {
 	var app = angular.module('myApp', ['ngCookies']);
 
-	app.controller('getUsersController', [ '$scope', '$http', function($scope, $http) {
+
+
+	app.controller('getUsersController', [ '$scope', '$http', '$interval', function($scope, $http, $interval) {
 		$http.get("../PHP/getUsersSQL.php")
 		.then(function (response) {
 			$scope.users_DB = response.data;
 		});
+		var timer= $interval(function(){},10000);
 	}]);
 
-	app.controller('getEventsController', [ '$scope', '$http', function($scope, $http) {
+
+
+
+	app.controller('getEventsController', [ '$scope', '$http', '$interval', function($scope, $http, $interval) {
 		$http.get("../PHP/getEventsSQL.php")
 		.then(function (response) {
 			$scope.events_DB = response.data;
 		});
 
+		var timer= $interval(function(){},10000);
+
 	}]);
+
+
+
 
 	app.controller('postController', ['$scope','$http','$window','$cookies',function($scope, $http, $window,$cookies) {
 		$scope.formType = {
@@ -64,6 +75,9 @@
 
 	}]);
 
+
+
+
 	app.controller('cookieController', ['$scope','$cookies','$window', function($scope, $cookies, $window) {
 		$scope.cookieUser = {
 			val : false,
@@ -86,6 +100,10 @@
 		};
 	}]);
 
+
+
+
+    
     app.directive('rpgNavbarMenu', function() {
         return {
             templateUrl : 'templates-html/navbarMenu.html' 
