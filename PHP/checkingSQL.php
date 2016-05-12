@@ -10,7 +10,7 @@
     $servername = "db624774209.db.1and1.com";
     $database   = "db624774209";
     $username = "dbo624774209";
-    $passwordDB = "not my password D:";
+    $passwordDB = "Not My password D:";
 try {
     
     // connexion

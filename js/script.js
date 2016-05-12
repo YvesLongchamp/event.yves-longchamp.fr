@@ -13,6 +13,7 @@
 		.then(function (response) {
 			$scope.events_DB = response.data;
 		});
+
 	}]);
 
 	app.controller('postController', ['$scope','$http','$window','$cookies',function($scope, $http, $window,$cookies) {
@@ -84,4 +85,16 @@
 			this.checkTheCookie();
 		};
 	}]);
+
+    app.directive('rpgNavbarMenu', function() {
+        return {
+            templateUrl : 'templates-html/navbarMenu.html' 
+        };
+    });
+    app.directive('rpgFooter', function() {
+        return {
+            templateUrl : 'templates-html/footerEvents.html'
+        }
+    })
+
 })();
