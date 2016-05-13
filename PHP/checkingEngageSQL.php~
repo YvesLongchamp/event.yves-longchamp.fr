@@ -4,12 +4,13 @@
     $parameters = json_decode($postdata,true);
     $pseudo = $parameters["pseudo"];
     $password = $parameters["password"];
+    
 
 // connexion data
     $servername = "db624774209.db.1and1.com";
     $database   = "db624774209";
     $username = "dbo624774209";
-    $passwordDB = "loliBanane72";
+    $passwordDB = "Not My password D:";
 try {
     
     // connexion
@@ -17,20 +18,20 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // request
-    $request = $conn->prepare('SELECT password FROM users WHERE pseudo = :pseudo ;')
+    $request = $conn->prepare('SELECT COUNT(u.pseudo) AS counting FROM users u, events e, engage eng WHERE e.name = :name AND u.pseudo = :pseudo AND e.event_id = eng.event_id AND u.id = eng.id')
     or exit(print_r($conn->errorInfo())); 
     $request->execute(array(
-        'pseudo' => $pseudo
+        'pseudo' => $pseudo,
+        'name' => $name
         ));
 
     // check
     $test = $request->fetchAll();
-    $testHash = $test[0][password];
-    if (password_verify($password, $testHash)) {
-        setcookie("AYBABTU",$pseudo + "__" + $testHash, time() +3600, "/");
-        echo("true");
+    $testNumber = $test[0][counting];
+    if ($testNumber == 0) { // a modifier
+       echo("false");
     } else {
-        echo("false");
+        echo("true");
     }
 
 

@@ -10,7 +10,7 @@
     $servername = "db624774209.db.1and1.com";
     $database   = "db624774209";
     $username = "dbo624774209";
-    $passwordDB = "Not My password D:";
+    $passwordDB = "loliBanane72";
 try {
     
     // connexion
@@ -28,7 +28,7 @@ try {
     // check
     $test = $request->fetchAll();
     $testNumber = $test[0][counting];
-    if ($testNumber == 0) {
+    if ($testNumber == 0) { // a modifier
        echo("false");
     } else {
         echo("true");

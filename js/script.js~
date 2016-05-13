@@ -38,6 +38,9 @@
                 ,function errorCallBack(response){
                     
                 });
+            } else {
+                $scope.responseBool = false;
+            } 
 		};
 
         this.isEnroled = function (nameOfEvent) {

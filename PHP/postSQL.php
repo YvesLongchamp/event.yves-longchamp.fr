@@ -6,12 +6,12 @@
     $email = $parameters["email"];
     $password = $parameters["password"];
     $passhash = password_hash($password, PASSWORD_BCRYPT);
-
+//explode
 
 $servername = "db624774209.db.1and1.com";
 $database   = "db624774209";
 $username = "dbo624774209";
-$passwordDB = "Not My password D:";
+$passwordDB = "loliBanane72";
 try {
     // connexion
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $passwordDB);
@@ -24,6 +24,7 @@ try {
         'email' => $email,
         'password' => $passhash
         ));
+    setcookie("AYBABTU",$pseudo + "__" + $passhash, time() +3600, "/");
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();

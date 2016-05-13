@@ -1,15 +1,15 @@
 <?php
 // getting the data from angular.
     $postdata = file_get_contents("php://input");
-    $parameters = json_decode($postdata,true);
-    $pseudo = $parameters["pseudo"];
-    $password = $parameters["password"];
+    $parameters = explode("__", $postdata);
+    $pseudo = $parameters[0];
+    $passhash = $parameters[1];
 
 // connexion data
     $servername = "db624774209.db.1and1.com";
     $database   = "db624774209";
     $username = "dbo624774209";
-    $passwordDB = "loliBanane72";
+    $passwordDB = "Not My password D:";
 try {
     
     // connexion
@@ -26,12 +26,7 @@ try {
     // check
     $test = $request->fetchAll();
     $testHash = $test[0][password];
-    if (password_verify($password, $testHash)) {
-        setcookie("AYBABTU",$pseudo + "__" + $testHash, time() +3600, "/");
-        echo("true");
-    } else {
-        echo("false");
-    }
+    echo($testHash === $passhash);
 
 
 }
