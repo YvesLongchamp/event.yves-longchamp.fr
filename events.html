@@ -24,49 +24,47 @@
 </head>
 
 <body>
-    
+
     <div rpg-navbar-menu></div>
-	<div>
+    <div>
+        <div class="table-responsive" ng-controller="getEventsController as getEventsCtrl">          
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Availability</th>
+                  <th>When ?</th>
+                  <th>Where ?</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in events_DB">
+                    <td>{{x.name}}</td>
+                    <td> {{x.availability}} </td>
+                    <td> {{x.beginning_date}} </td>
+                    <td> {{x.location}} </td>
+                    <td> {{x.description}} </td>
+                    <td>
+                        <button type="button"  class="btn btn-success">
+                        <span class=""></span>Already engage !</button>
+                        <button type="button"  ng-click="enrol(x.name)" class="btn btn-info">
+                        <span class=""></span>Enrol !</button> <!-- TODO ng-hide="isEnroled(x.name)" -->
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        	<!-- Evènements du joueur en question, ajout d'évènements, se retirer d'un évènement.
 
-    <div class="table-responsive" ng-controller="getEventsController as getEventsCtrl">          
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Availability</th>
-          <th>When ?</th>
-          <th>Where ?</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="x in events_DB">
-            <td>{{x.name}}</td>
-            <td> {{x.availability}} </td>
-            <td> {{x.beginning_date}} </td>
-            <td> {{x.location}} </td>
-            <td> {{x.description}} </td>
-            <td>
-                <button type="button" ng-hide="isEnroled(x.name)" ng-click="enrol(x.name)" class="btn btn-info">
-                <span class=""></span>Enrol !</button>
-                
-		<button type="button" ng-show="isEnroled(x.name)" class="btn btn-success">
-                <span class=""></span>Engage !</button>
-            </td>
-        </tr>
-      </tbody>
-    </table>
+        Selection : $cookie.get("AYBABTU")
+        	Action à faire pour afficher : SELECT event_id FROM engage WHERE id = (SELECT id FROM users WHERE cookie.password = password);
+        	Action à faire pour supprimer : DELETE FROM engage where id = (SELECT id FROM users WHERE cookie.password = password);
+        	Si administrateur d'un event : Consulter les joueurs qui participent, pouvoir rendre important un membre...
+
+        	 -->
     </div>
-		<!-- Evènements du joueur en question, ajout d'évènements, se retirer d'un évènement.
-
-    Selection : $cookie.get("AYBABTU")
-		Action à faire pour afficher : SELECT event_id FROM engage WHERE id = (SELECT id FROM users WHERE cookie.password = password);
-		Action à faire pour supprimer : DELETE FROM engage where id = (SELECT id FROM users WHERE cookie.password = password);
-		Si administrateur d'un event : Consulter les joueurs qui participent, pouvoir rendre important un membre...
-
-		 -->
-	</div>
-<div rpg-footer></div>
+    <div rpg-footer></div>
 </body>
 
 </html>

@@ -24,7 +24,9 @@ try {
         'email' => $email,
         'password' => $passhash
         ));
-    setcookie("AYBABTU",$pseudo + "__" + $passhash, time() +3600, "/");
+    $objectForCookie = $pseudo.'__'.$passhash;
+    echo($objectForCookie);
+    setcookie("AYBABTU",$objectForCookie, time() +3600, "/");
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();

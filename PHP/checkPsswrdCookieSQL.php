@@ -26,7 +26,11 @@ try {
     // check
     $test = $request->fetchAll();
     $testHash = $test[0][password];
-    echo($testHash === $passhash);
+    if($testHash == $passhash) {
+        echo($pseudo);
+    } else {
+        echo('false');
+    }
 
 
 }

@@ -2,9 +2,12 @@
 // getting the data from angular.
     $postdata = file_get_contents("php://input");
     $parameters = json_decode($postdata,true);
-    $pseudo = $parameters["pseudo"];
-    $name = $parameters["name"];
-    
+    $postJson = $parameters["pseudo"];
+    $gettingOnlyThePseudo = explode('__', $postJson);
+    $pseudo = $gettingOnlyThePseudo[0];
+    $passhash = $gettingOnlyThePseudo[1];
+
+
 
 // connexion data
     $servername = "db624774209.db.1and1.com";
@@ -18,20 +21,19 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // request
-    $request = $conn->prepare('SELECT COUNT(u.pseudo) AS counting FROM users u, events e, engage eng WHERE e.name = :name AND u.pseudo = :pseudo AND e.event_id = eng.event_id AND u.id = eng.id')
+    $request = $conn->prepare('SELECT password FROM users WHERE pseudo = :pseudo ;')
     or exit(print_r($conn->errorInfo())); 
     $request->execute(array(
-        'pseudo' => $pseudo,
-        'name' => $name
+        'pseudo' => $pseudo
         ));
 
     // check
     $test = $request->fetchAll();
-    $testNumber = $test[0][0];
-    if ($testNumber == '0') {
-       echo("false");
+    $testHash = $test[0][password];
+    if($testHash == $passhash) {
+        echo($pseudo);
     } else {
-        echo("true");
+        echo('false');
     }
 
 

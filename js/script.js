@@ -3,53 +3,37 @@
 
 
 
-	app.controller('getUsersController', [ '$scope', '$http', '$interval', function($scope, $http, $interval) {
+	app.controller('getUsersController', [ '$scope', '$http', function($scope, $http) {
 		$http.get("../PHP/getUsersSQL.php")
 		.then(function (response) {
 			$scope.users_DB = response.data;
 		});
-		var timer= $interval(function(){},5000);
 	}]);
 
 
 
 
-	app.controller('getEventsController', [ '$scope', '$http', '$interval', '$window', '$cookies', function($scope, $http, $interval, $window, $cookies) {
+	app.controller('getEventsController', [ '$scope', '$http', '$window', '$cookies', function($scope, $http, $window, $cookies) {
 		$http.get("../PHP/getEventsSQL.php")
 		.then(function (response) {
 			$scope.events_DB = response.data;
 		});
+		$scope.cookieUser = {};
+		$scope.hasACookie = false;
 
-		$scope.hasACookie = false; 
-		this.isConnected = function() {
-			$scope.cookieUser.pseudo = $cookies.get("AYBABTU");
-			$http.post("../PHP/checkPsswrdCookieSQL.php",{name : nameOfEvent, pseudo : $scope.cookieUser.pseudo})
-            .then(
-                function succesCallBack(response) {
-                    $scope.response = response.data;
-                    if($scope.response) {
-                        $scope.responseBool = true;
-                    } else {
-			$cookie.remove("AYBABYU");
-                        $scope.responseBool = false;
-                    }
-
-                }
-                ,function errorCallBack(response){
-                    
-                });
-		};
 
         this.isEnroled = function (nameOfEvent) {
+            console.log("appel");
             if($scope.hasACookie) {
                 $http.post("../PHP/checkingEngageSQL.php",{name : nameOfEvent, pseudo : $scope.cookieUser.pseudo})
             .then(
                 function succesCallBack(response) {
-                    $scope.response = response.data;
-                    if($scope.response === "true") {
-                        $scope.responseBool = true;
+                    $scope.reponse = response.data;
+                    console.log($scope.reponse);
+                    if($scope.reponse == "true") {
+                        return true;
                     } else {
-                        $scope.responseBool = false;
+                        return false;
                     }
 
                 }
@@ -61,6 +45,27 @@
             } 
             
         };
+
+		this.isConnected = function() {
+			$scope.cookieUser.cookieVal = $cookies.get("AYBABTU");
+			$http.post("../PHP/checkPsswrdCookieJSONSQL.php",{pseudo : $scope.cookieUser.cookieVal})
+            .then(
+                function succesCallBack(response) {
+                    $scope.response = response.data;
+                    if($scope.response != 'false') {
+                        $scope.hasACookie = true;
+                        $scope.cookieUser.pseudo = $scope.response;
+                    } else {
+			            $cookies.remove("AYBABYU");
+                        $scope.hasACookie = false;
+                    }
+
+                }
+                ,function errorCallBack(response){
+                    
+                });
+		};
+
 
         this.enrol = function(nameOfEvent) {
             if($scope.hasACookie) {
@@ -77,7 +82,6 @@
             }
         };
         this.isConnected();
-		var timer= $interval(function(){},5000);
 	}]);
 
 
@@ -133,21 +137,21 @@
 
 
 
-
 	app.controller('cookieController', ['$scope','$cookies','$window', '$http', function($scope, $cookies, $window, $http) {
 		$scope.cookieUser = {
 			val : false,
-			pseudo : ""
+			pseudo : "",
+			isHere : ""
 		};
 		this.checkTheCookie = function() {
-			$scope.cookieUser.pseudo = $cookies.get("AYBABTU");
-			if(angular.isDefined($scope.cookieUser.pseudo)) {
-			    $http.post("../PHP/checkPsswrdCookieSQL.php",$scope.$scope.cookieUser.pseudo)
+			$scope.cookieUser.isHere = $cookies.get("AYBABTU");
+			if(angular.isDefined($scope.cookieUser.isHere)) {
+			    $http.post("../PHP/checkPsswrdCookieSQL.php",$scope.cookieUser.isHere)
 			    .then(
 				function succesCallBack(response){
 					$scope.reponse = response.data;
-					if($scope.reponse) {
-						console.log("good cookie");
+					if($scope.reponse != "false") {
+						$scope.cookieUser.pseudo = $scope.reponse;
 					} else {
 					    $cookies.remove("AYBABTU");
 					}
@@ -155,7 +159,7 @@
 				,function errorCallBack(response){
 					console.log("Bad.");
 				});
-                            $scope.cookieUser.val = true;
+                $scope.cookieUser.val = true;
 			} else {
 				$scope.cookieUser.val = false;
 			}
@@ -164,8 +168,8 @@
 
 		this.logout = function() {
 			$cookies.remove("AYBABTU");
-			$window.alert("You've been disconnected.");
 			this.checkTheCookie();
+			$window.location.reload();
 		};
 	}]);
 
