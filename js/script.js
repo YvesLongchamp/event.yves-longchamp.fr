@@ -14,14 +14,60 @@
 
 
 
-	app.controller('getEventsController', [ '$scope', '$http', '$interval', function($scope, $http, $interval) {
+	app.controller('getEventsController', [ '$scope', '$http', '$interval', 'window', 'cookies', function($scope, $http, $interval, $window, $cookies) {
 		$http.get("../PHP/getEventsSQL.php")
 		.then(function (response) {
 			$scope.events_DB = response.data;
 		});
 
-		var timer= $interval(function(){},10000);
+		$scope.hasACookie = false; 
+		this.isConnected = function() {
+			$scope.cookieUser.pseudo = $cookies.get("AYBABTU");
+			if(angular.isDefined($scope.cookieUser.pseudo)) {
+                $scope.hasACookie = true;
+			} else {
+				$scope.hasACookie = false;
+			}
+		};
 
+        this.isEnroled = function (nameOfEvent) {
+            if($scope.hasACookie) {
+                $http.post("../PHP/checkingEngageSQL.php",{name : nameOfEvent, pseudo : $scope.cookieUser.pseudo})
+            .then(
+                function succesCallBack(response) {
+                    $scope.response = response.data;
+                    if($scope.response === "true") {
+                        $scope.responseBool = true;
+                    } else {
+                        $scope.responseBool = false;
+                    }
+
+                }
+                ,function errorCallBack(response){
+                    
+                });
+            } else {
+                $scope.responseBool = false;
+            } 
+            
+        };
+
+        this.enrol = function(nameOfEvent) {
+            if($scope.hasACookie) {
+                $http.post("../PHP/postEngagedSQL.php", {name : nameOfEvent, pseudo : $scope.cookieUser.pseudo})
+                .then(
+                    function succesCallBack(response){
+
+                    }
+                    , function errorCallBack(response){
+
+                    });
+            } else {
+                $window.location.href = "login.html";
+            }
+        };
+        this.isConnected();
+		var timer= $interval(function(){},5000);
 	}]);
 
 
