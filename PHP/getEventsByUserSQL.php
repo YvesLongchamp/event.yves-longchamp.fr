@@ -3,38 +3,28 @@
     $postdata = file_get_contents("php://input");
     $parameters = json_decode($postdata,true);
     $pseudo = $parameters["pseudo"];
-    $password = $parameters["password"];
-    
-
-// connexion data
+// Connexion data
     $servername = "db624774209.db.1and1.com";
     $database   = "db624774209";
     $username = "dbo624774209";
-    $passwordDB = "Not My password D:";
+    $passwordDB = "loliBanane72";
 try {
-    
     // connexion
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $passwordDB);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
     // request
-    $request = $conn->prepare('SELECT COUNT(u.pseudo) AS counting FROM users u, events e, engage eng WHERE e.name = :name AND u.pseudo = :pseudo AND e.event_id = eng.event_id AND u.id = eng.id')
+    $request = $conn->prepare('SELECT e.name ,e.location, e.description, sc.beginning_date, sc.ending_date, e.availability 
+        FROM events e, schedules sc, is_decided isd
+        WHERE e.user_id = (SELECT id FROM users WHERE pseudo = :pseudo)
+        AND isd.event_id = e.event_id
+        AND isd.schedule_id = sc.schedule_id;')
     or exit(print_r($conn->errorInfo())); 
     $request->execute(array(
-        'pseudo' => $pseudo,
-        'name' => $name
+        'pseudo' => $pseudo
         ));
-
-    // check
-    $test = $request->fetchAll();
-    $testNumber = $test[0][counting];
-    if ($testNumber == 0) { // a modifier
-       echo("false");
-    } else {
-        echo("true");
-    }
-
-
+    $request->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $request->fetchAll();
+    echo json_encode($result);
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();

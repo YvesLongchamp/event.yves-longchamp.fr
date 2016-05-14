@@ -9,13 +9,13 @@
     $servername = "db624774209.db.1and1.com";
     $database   = "db624774209";
     $username = "dbo624774209";
-    $passwordDB = "Not My password D:";
+    $passwordDB = "loliBanane72";
 try {
     // connexion
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $passwordDB);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // request
-    $request = $conn->prepare('INSERT INTO engage(id, event_id) VALUES (SELECT u.id, e.event_id FROM users u, events e WHERE u.pseudo = :pseudo AND e.name = :name)')
+    $request = $conn->prepare('INSERT INTO engage(id, event_id) SELECT u.id, e.event_id FROM users u, events e WHERE u.pseudo = :pseudo AND e.name = :name ')
     or exit(print_r($conn->errorInfo())); 
     $request->execute(array(
         'pseudo' => $pseudo,

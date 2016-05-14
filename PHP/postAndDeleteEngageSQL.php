@@ -1,37 +1,34 @@
 <?php
 // getting the data from angular.
     $postdata = file_get_contents("php://input");
-    $parameters = explode("__", $postdata);
-    $pseudo = $parameters[0];
-    $passhash = $parameters[1];
+    $parameters = json_decode($postdata,true);
+    $pseudo = $parameters["pseudo"];
+    $name = $parameters["name"];
 
-// connexion data
+// Connexion data
     $servername = "db624774209.db.1and1.com";
     $database   = "db624774209";
     $username = "dbo624774209";
-    $passwordDB = "Not My password D:";
+    $passwordDB = "loliBanane72";
 try {
-    
     // connexion
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $passwordDB);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
     // request
-    $request = $conn->prepare('SELECT password FROM users WHERE pseudo = :pseudo ;')
+    $request = $conn->prepare('DELETE FROM engage 
+        WHERE id = ( 
+            SELECT id FROM users WHERE pseudo = :pseudo
+            ) AND event_id = (
+            SELECT event_id FROM events WHERE name = :name); ')
     or exit(print_r($conn->errorInfo())); 
     $request->execute(array(
-        'pseudo' => $pseudo
+        'pseudo' => $pseudo,
+        'name' => $name
         ));
-
-    // check
-    $test = $request->fetchAll();
-    $testHash = $test[0][password];
-    echo($testHash === $passhash);
-
-
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
+print_r($conn->errorInfo());
 $conn = null;
 ?>
