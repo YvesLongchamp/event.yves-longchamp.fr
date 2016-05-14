@@ -1,0 +1,27 @@
+
+<div class="table-responsive" ng-controller="getEventsController as getEventsCtrl">          
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Availability</th>
+          <th>When ?</th>
+          <th>Where ?</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="x in events_DB">
+            <td>{{x.name}}</td>
+            <td> {{x.availability}} </td>
+            <td> {{x.beginning_date}} </td>
+            <td> {{x.location}} </td>
+            <td> {{x.description}} </td>
+            <td>
+                 <a href="#/events/{{x.name}}" class="btn btn-info">
+                <span class="glyphicon glyphicon-info-sign"></span> </button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

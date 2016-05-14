@@ -1,0 +1,30 @@
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3 panel panel-default" ng-controller="postController as postCtrl">
+
+	<form name="loginIn" ng-submit="postCtrl.login()" role="form">
+
+        <div class="form-group" ng-class="{ 'has-error': loginIn.pseudo.$dirty && loginIn.pseudo.$error.required }">
+            <label for="pseudo"></label>
+            <input type="text" name="pseudo" id="pseudo" class="form-control" ng-model="logType.pseudo" placeholder="Username" required />
+            <span ng-show="loginIn.pseudo.$dirty && loginIn.pseudo.$error.required" class="help-block">Username is required</span>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': loginIn.password.$dirty && loginIn.password.$error.required }">
+            <label for="password"> </label>
+            <input type="password" name="password" id="password" class="form-control" ng-model="logType.password" placeholder="Password" required />
+            <span ng-show="loginIn.password.$dirty && loginIn.password.$error.required" class="help-block">Password is required</span>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" ng-disabled="loginIn.$invalid" class="btn btn-success btn-lg btn-block">Login </button>
+            <a href="index.html" class="btn btn-primary btn-lg btn-block">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Return to index
+            </a>
+            <p></p>
+        </div>
+
+    </form>
+       </div>
+    </div>
+</div>
