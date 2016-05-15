@@ -22,7 +22,7 @@
 	        	controller: 'eventController'
 	        })
 	        .when('/profile/:userId', {
-	        	templatesUrl: 'templates-html/user.html',
+	        	templateUrl: 'templates-html/userpage.html',
 	        	controller: 'userController'
 	        })
 	        .when('/login', {
@@ -176,7 +176,7 @@
 				function succesCallBack(response){
 					$scope.reponsePost = response.data;
 					if($scope.reponsePost === "true") {
-						$window.location.href = "#/index";
+						$window.location.reload();
 					} else {
 						$window.alert("Bad credentials");
 						$scope.logType.password = "";
@@ -327,6 +327,21 @@
         this.isConnected();
 	 }]);
     
+
+    app.controller('userController', ['$scope', '$cookies', '$window', '$routeParams', '$http', 
+    	function($scope, $cookies, $window, $routeParams, $http) {
+    	$scope.userId = $routeParams.userId;
+
+    	$http.post("../PHP/getInformationUsersSQL.php", {pseudo : $scope.userId})
+    	.then(
+    		function successCallBack(response) {
+    			$scope.userInfo = response.data;
+    			console.log($scope.userInfo);
+    		},
+    		function errorCallBack(response) {
+    			console.log("Something bad happened :(");
+    		});
+    }]);
 
 	app.directive('rpgFormNewEvent', function() {
 		return {
