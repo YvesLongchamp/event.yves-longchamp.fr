@@ -18,7 +18,11 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // request
-    $request = $conn->prepare('SELECT COUNT(u.pseudo) AS counting FROM users u, events e, engage eng WHERE e.name = :name AND u.pseudo = :pseudo AND e.event_id = eng.event_id AND u.id = eng.id')
+    $request = $conn->prepare('SELECT COUNT(u.pseudo) AS counting FROM users u, events e, engage eng 
+        WHERE e.event_id = eng.event_id 
+        AND eng.id = u.id 
+        AND e.name = :name 
+        AND u.id = (SELECT id FROM users WHERE pseudo = :pseudo)')
     or exit(print_r($conn->errorInfo())); 
     $request->execute(array(
         'pseudo' => $pseudo,

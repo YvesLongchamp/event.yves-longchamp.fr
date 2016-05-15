@@ -1,0 +1,30 @@
+<div ng-show="showCreate" class="col-xs-6 col-xs-offset-3 panel panel-default">               
+  
+  <form name="formCreate" ng-submit="getEventsByUserCtrl.newEvent()" role="form">
+    <div class="form-group" ng-class="{ 'has-error': formCreate.name.$dirty && formCreate.name.$error.required }">
+      <input type="text" name="name" id="name" ng-model="formCreateEvent.name" placeholder="Name" required/>
+      <span ng-show="formCreate.name.$dirty && formCreate.name.$error.required" class="help-block">Name is required</span>
+    </div>
+    <div class="form-group">
+      <input type="number" name="availability" id="availability" ng-model="formCreateEvent.availability" placeholder="Availability (If you don't want any limitation for places, let it like this)." />
+    </div> 
+    <div class="form-group" ng-class="{ 'has-error': formCreate.beginning_date.$dirty && formCreate.beginning_date.$error.required }">
+      <input type="text" name="beginning_date" id="beginning_date" ng-model="formCreateEvent.beginning_date" placeholder="jj-mm-yyyy HH:mm:ss" required/>
+      <span ng-show="formCreate.beginning_date.$dirty && formCreate.beginning_date.$error.required" class="help-block">beginning date is required</span>
+    </div> 
+    <div class="form-group" ng-class="{ 'has-error': formCreate.ending_date.$dirty && formCreate.ending_date.$error.required }">
+      <input type="text" name="ending_date" id="ending_date" ng-model="formCreateEvent.ending_date" placeholder="jj-mm-yyyy HH:mm:ss" required/>
+      <span ng-show="formCreate.ending_date.$dirty && formCreate.ending_date.$error.required" class="help-block">Ending date is required</span>
+    </div> 
+    <div class="form-group">
+      <input type="text" name="location" id="location" ng-model="formCreateEvent.location" placeholder="Location"/>
+    </div>             
+    <div class="form-group">
+      <input type="text" name="description" id="description" ng-model="formCreateEvent.description" placeholder="Description" />
+    </div>
+    <div class="form-actions"> 
+       <button type="submit" ng-disabled="formCreate.$invalid" ng-show="showCreate" class="btn btn-primary">Create !
+    </button>
+    </div>  
+  </form>
+</div>

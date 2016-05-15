@@ -1,0 +1,29 @@
+<div ng-show="showUpdate" class="col-xs-6 col-xs-offset-3 panel panel-default">
+          
+<form name="formUpdate" ng-submit="getEventsByUserCtrl.updateEvent()" role="form">
+<div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }" ng-hide="false">
+  <input type="text" name="name" id="name" ng-model="updateModel.name" placeholder="Name" required/>
+  <span ng-show="formUpdate.name.$dirty && formUpdate.name.$error.required" class="help-block">Name is required</span>
+</div>
+<div class="form-group">
+  <input type="number" name="availability" id="availability" ng-model="updateModel.availability" placeholder="Availability (If you don't want any limitation for places, let it like this)." />
+</div> 
+<div class="form-group" ng-class="{ 'has-error': form.beginning_date.$dirty && form.beginning_date.$error.required }">
+  <input type="text" name="beginning_date" id="beginning_date" ng-model="updateModel.beginning_date" placeholder="Beginning Date" required/>
+  <span ng-show="formUpdate.beginning_date.$dirty && formUpdate.beginning_date.$error.required" class="help-block">beginning date is required</span>
+</div>
+<div class="form-group" ng-class="{ 'has-error': formUpdate.ending_date.$dirty && formUpdate.ending_date.$error.required }">
+  <input type="text" name="ending_date" id="ending_date" ng-model="updateModel.ending_date" placeholder="Ending date" required/>
+  <span ng-show="formUpdate.ending_date.$dirty && formUpdate.ending_date.$error.required" class="help-block">Ending date is required</span>
+</div> 
+<div class="form-group">
+  <input type="text" name="location" id="location" ng-model="updateModel.location" placeholder="Location"/>
+</div>             
+<div>
+  <input type="text" name="description" id="description" ng-model="updateModel.description" placeholder="Description" />
+</div class="form-group">
+<div class="form-actions"> 
+  <button type="submit" ng-disabled="formUpdate.$invalid" ng-show="showUpdate" class="btn btn-primary">Update !
+    </button>
+
+</div>

@@ -28,6 +28,7 @@ try {
         ));
 
     // check
+    $request->setFetchMode(PDO::FETCH_ASSOC);
     $test = $request->fetchAll();
     $testHash = $test[0][password];
     if($testHash == $passhash) {

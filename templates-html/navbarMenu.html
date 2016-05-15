@@ -14,11 +14,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="#/events">Events<span class="sr-only">(current)</span></a></li>
-                    <li><a href="http://z0r.de/72">Drop da link</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" ng-hide="cookieUser.val">
                     <li><a href="#/register"><span class="glyphicon glyphicon-plus"></span> Sign up</a></li>
-                    <li><a href="#/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                    <li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 	</ul>
                 <ul class="nav navbar-nav navbar-right" ng-show="cookieUser.val">
                     <li class="dropdown">
@@ -29,7 +28,7 @@
             				<li><a href="#/Settlement">Settlement</a></li>
           				</ul>
         			</li> 
-                    <li><a href="" ng-click="cookieCtrl.logout()"><span class="glyphicon glyphicon-remove"></span>Logout</a></li>
+                    <li><a href="" ng-click="cookieCtrl.logout()"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                 	</ul>
             	</div><!-- /.navbar-collapse -->
         	</div><!-- /.container-fluid -->

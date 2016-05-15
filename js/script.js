@@ -1,6 +1,5 @@
 (function() {
 	var app = angular.module('myApp', ['ngCookies', 'ngRoute']);
-
 	app.config(['$routeProvider',
 	    function($routeProvider) { 
 	        
@@ -51,6 +50,7 @@
 	app.controller('getEventsController', [ '$scope', '$http', '$window', '$cookies', function($scope, $http, $window, $cookies) {
 		$http.get("../PHP/getEventsSQL.php")
 		.then(function (response) {
+			console.log(response);
 			$scope.events_DB = response.data;
 		});
 
@@ -61,6 +61,16 @@
 	app.controller('getEventsByUserController',['$scope', '$cookies', '$window','$routeParams','$http',
 		function($scope, $cookies, $window, $routeParams, $http) {
  		$scope.userId = $routeParams.userId;
+ 		$scope.formCreateEvent = {
+ 			name: "",
+ 			availability: null,
+ 			beginning_date: null,
+ 			ending_date: null,
+ 			location: "",
+ 			description: "",
+ 			username: $scope.userId
+ 		};
+
 		$http.post("../PHP/getEventsByUserSQL.php",{pseudo : $scope.userId})
 			.then(function (response) {
 			$scope.eventsByUser_DB = response.data;
@@ -76,12 +86,17 @@
                     console.log($scope.response);
                     if($scope.response == 'false' || $scope.response == '') {
                     	$cookies.remove("AYBABYU");
-                        $window.location.href('#/home');
+                        $window.location.href = '#/home';
                     	
                     } else {
-                        $scope.hasACookie = true;
-                        $scope.cookieUser.pseudo = $scope.response;
-                        $scope.isEnroled($scope.eventId);
+                    	if($scope.response == $scope.userId) {
+							$scope.hasACookie = true;
+                        	$scope.cookieUser.pseudo = $scope.response;
+                        	$scope.isEnroled($scope.eventId);
+                    	} else {
+                    		$window.location.href = '#/home';
+                    	}
+
                     }
 
                 }
@@ -89,6 +104,32 @@
                     
                 });
         };
+
+        $scope.newEvent = function() {
+        	console.log($scope.formEvent);
+        	$http.post("../PHP/postNewEventSQL.php", $scope.formEvent)
+        	.then(function (response) {
+        		console.log(response);
+        		if(response.data == 'false') {
+        			$window.alert("The event already exist.");
+        		}
+        	})
+        };
+
+        $scope.update = function(indexUpdate) {
+        	$scope.showUpdate = true;
+        	$scope.updateModel = $scope.eventsByUser_DB[indexUpdate];
+        	console.log($scope.updateModel);
+        };
+
+        this.updateEvent = function() {
+        	console.log($scope.updateModel);
+        	$http.put("../PHP/postUpdateEventSQL.php", $scope.updateModel)
+        	.then(function (response) {
+        		console.log(response);
+        		$window.location.reload();
+        	})
+        }
         this.isConnected();
 	}]);
 
@@ -105,8 +146,15 @@
 			password : "",
 			rememberCheck : "false"
 		};
-		$scope.reponse = "rien";
+		$scope.reponsePost = "rien";
 		
+		this.checkLogin = function() {
+			$scope.cookieCheck = $cookies.get("AYBABTU");
+			if(angular.isDefined($scope.cookieCheck)) {
+				$window.location.href = "#";
+			}
+		};
+
 		this.postOnDatabase = function() {
 		    $http.post("../PHP/postSQL.php",$scope.formType)
         	.then(
@@ -125,8 +173,8 @@
 			$http.post("../PHP/checkingSQL.php",$scope.logType)
 			.then(
 				function succesCallBack(response){
-					$scope.reponse = response.data;
-					if($scope.reponse === "true") {
+					$scope.reponsePost = response.data;
+					if($scope.reponsePost === "true") {
 						$window.location.href = "#/index";
 					} else {
 						$window.alert("Bad credentials");
@@ -139,7 +187,7 @@
 		};	
 
 
-
+		this.checkLogin();
 	}]);
 
 
@@ -156,9 +204,9 @@
 			    $http.post("../PHP/checkPsswrdCookieSQL.php",$scope.cookieUser.isHere)
 			    .then(
 				function succesCallBack(response){
-					$scope.reponse = response.data;
-					if($scope.reponse != "false") {
-						$scope.cookieUser.pseudo = $scope.reponse;
+					$scope.reponseCookie = response.data;
+					if($scope.reponseCookie != "false") {
+						$scope.cookieUser.pseudo = $scope.reponseCookie;
 					} else {
 					    $cookies.remove("AYBABTU");
 					}
@@ -186,23 +234,27 @@
 		function($scope, $cookies, $window, $routeParams, $http) {
 	    $scope.eventId = $routeParams.eventId;
    		$scope.cookieUser = {};
-		$scope.hasACookie = false;
 		$scope.isEngaged = false;
+		$scope.hasACookie = false;
 
 	    $http.post("../PHP/checkEventSQL.php",{name: $scope.eventId})
 			    .then(
-				function succesCallBack(response){
-					$scope.reponse = response.data;
+				function successCallBack(response){
+					$scope.reponseEvent = response.data;
 				}, function errorCallBack(response) {
 					console.log("Something went bad :(");
 				});
 
 	 	        $scope.isEnroled = function (nameOfEvent) {
+	 	        	console.log("Appel isEnroled");
+	 	        	console.log($scope.hasACookie);
+	 	        	console.log($scope.cookieUser.pseudo);
             		if($scope.hasACookie) {
 		                $http.post("../PHP/checkingEngageSQL.php",{name : nameOfEvent, pseudo : $scope.cookieUser.pseudo})
 		            	.then(
 		                function succesCallBack(response) {
 		                    $scope.reponseForCookie = response.data;
+		                    console.log($scope.reponseForCookie);
 		                    if($scope.reponseForCookie == "true") {
 		                        $scope.isEngaged = true;
 		                    } else {
@@ -224,23 +276,24 @@
 			$http.post("../PHP/checkPsswrdCookieJSONSQL.php",{pseudo : $scope.cookieUser.cookieVal})
             .then(
                 function succesCallBack(response) {
-                    $scope.response = response.data;
-                    console.log($scope.response);
-                    if($scope.response == 'false' || $scope.response == '') {
+                    $scope.reponse = response.data;
+                    if($scope.reponse == 'false' || $scope.reponse == '') {
                     	$cookies.remove("AYBABYU");
                         $scope.hasACookie = false;
                     	
                     } else {
-                        $scope.hasACookie = true;
-                        $scope.cookieUser.pseudo = $scope.response;
+                    	$scope.hasACookie = true;
+                        $scope.cookieUser.pseudo = $scope.reponse;
+                        console.log($scope.cookieUser.pseudo);
                         $scope.isEnroled($scope.eventId);
+                    	}
+
                     }
 
-                }
                 ,function errorCallBack(response){
                     
-                });
-        console.log($scope.hasACookie);
+               });
+            console.log($scope.hasACookie);
 		};
 
 
@@ -274,7 +327,16 @@
 	 }]);
     
 
-
+	app.directive('rpgFormNewEvent', function() {
+		return {
+			templateUrl : 'templates-html/formCreateEvent.html'
+		};
+	});
+	app.directive('rpgFormUpdateEvent', function() {
+		return {
+			templateUrl : 'templates-html/formUpdateEvent.html'
+		};
+	});
     app.directive('rpgNavbarMenu', function() {
         return {
             templateUrl : 'templates-html/navbarMenu.html' 

@@ -1,51 +1,38 @@
 <div class="table-responsive" ng-controller="getEventsByUserController as getEventsByUserCtrl">          
+
     <table class="table table-striped">
       <thead>
         <tr>
           <th>Name</th>
           <th>Availability</th>
-          <th>When ?</th>
+          <th>When does it start ?</th>
+          <th>When does it end ?</th>
           <th>Where ?</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="x in eventsByUser_DB">
+        <tr ng-repeat="x in eventsByUser_DB track by $index">
             <td>{{x.name}}</td>
             <td> {{x.availability}} </td>
-            <td> {{x.beginning_date}} </td>
+            <td> {{x.beginning_date | date : 'dd-MM-yyyyTH:mm:ssZ'}} </td>
+            <td> {{x.ending_date | date : 'dd-MM-yyyyTH:mm:ssZ'}} </td>
             <td> {{x.location}} </td>
             <td> {{x.description}} </td>
             <td>
                  <a href="#/events/{{x.name}}" class="btn btn-info">
                 <span class="glyphicon glyphicon-info-sign"></span> </a>
+                <button type="button" ng-click="update($index)" class="btn btn-primary">Update</button>
             </td>
         </tr>
-        <tr ng-show="showCreate" role="form" ng-submit="getEventsByUserCtrl.newEvent()">
-          <form name="form">
-            <td ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
-              <input type="text" name="name" id="name" ng-model="formEvent.name" placeholder="Name" required/>
-              <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Name is required</span>
-            </td>
-            <td>
-              <input type="number" name="availability" id="availability" ng-model="formEvent.availability" placeholder="Availability (If you don't want any limitation for places, let it like this)." />
-            </td> 
-            <td ng-class="{ 'has-error': form.beginning_date.$dirty && form.beginning_date.$error.required }">
-              <input type="datetime" name="beginning_date" id="beginning_date" ng-model="formEvent.beginning_date" placeholder="Beginning Date" required/>
-              <span ng-show="form.pseudo.$dirty && form.pseudo.$error.required" class="help-block">beginning date is required</span>
-            </td> 
-            <td ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-              <input type="text" name="name" id="name" ng-model="formEvent.name" placeholder="Name" required/>
-              <span ng-show="form.pseudo.$dirty && form.pseudo.$error.required" class="help-block">Name is required</span>
-            </td> 
-            <td ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-              <input type="text" name="name" id="name" ng-model="formEvent.name" placeholder="Name" required/>
-              <span ng-show="form.pseudo.$dirty && form.pseudo.$error.required" class="help-block">Name is required</span>
-            </td>  
-          </form>
-        </tr>
+        
       </tbody>
     </table>
-    <button class="btn btn-primary" ng-click="showCreate=true"><span></span> New Event</button>
-</div>
-<button></button>
+    <button class="btn btn-primary" ng-click="showCreate=true" ng-hide="showCreate || showUpdate"><span></span> New Event</button>
+
+
+        <div rpg-form-new-event></div>
+        <div rpg-form-update-event></div>
+               
+          </form>
+        </div>

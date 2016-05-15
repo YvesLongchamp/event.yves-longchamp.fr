@@ -1,9 +1,9 @@
 <div ng-controller="eventController as eventCtrl" class="jumbotron-fluid">
 	<div class="container">
 		<h1>{{eventId}}</h1>
-		<h3>The starting date is  {{reponse[0].beginning_date}}</h3>
-		<h3>The ending date is {{reponse[0].ending_date}} <small ng-show="notLocked()">(Those dates can be changed)</small></h3>
-		<h4> Description : {{reponse[0].description}}</h4>
+		<h3>The starting date is  {{reponseEvent[0].beginning_date}}</h3>
+		<h3>The ending date is {{reponseEvent[0].ending_date}}</h3>
+		<h4> Description : {{reponseEvent[0].description}}</h4>
 		<button class="btn btn-success" ng-show="isEngaged"><span></span> Already engaged !</button>
 		<button class="btn btn-danger" ng-show="isEngaged" ng-click="eventCtrl.cancel()"><span></span> Cancel</button>
 		<button class="btn btn-info" ng-hide="isEngaged" ng-click="eventCtrl.enrol(eventId)"><span></span> Enrol !</button>

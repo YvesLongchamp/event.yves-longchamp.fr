@@ -13,9 +13,10 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $passwordDB);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // request
-    $request = $conn->prepare('SELECT e.name ,e.location, e.description, sc.beginning_date, sc.ending_date, e.availability 
+    $request = $conn->prepare('SELECT e.name ,e.location, e.description, sc.beginning_date, sc.ending_date, e.availability
         FROM events e, schedules sc, is_decided isd
-        WHERE e.user_id = (SELECT id FROM users WHERE pseudo = :pseudo)
+        WHERE (e.user_id = (SELECT id FROM users WHERE pseudo = :pseudo)  OR 
+            (e.event_id = cc.event_id AND cc.user_id = (SELECT id FROM users WHERE pseudo = :pseudo)
         AND isd.event_id = e.event_id
         AND isd.schedule_id = sc.schedule_id;')
     or exit(print_r($conn->errorInfo())); 
