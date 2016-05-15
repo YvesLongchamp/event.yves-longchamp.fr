@@ -61,6 +61,7 @@
 	app.controller('getEventsByUserController',['$scope', '$cookies', '$window','$routeParams','$http',
 		function($scope, $cookies, $window, $routeParams, $http) {
  		$scope.userId = $routeParams.userId;
+ 		console.log($scope.userId);
  		$scope.formCreateEvent = {
  			name: "",
  			availability: null,
@@ -105,9 +106,9 @@
                 });
         };
 
-        $scope.newEvent = function() {
-        	console.log($scope.formEvent);
-        	$http.post("../PHP/postNewEventSQL.php", $scope.formEvent)
+        this.newEvent = function() {
+        	console.log($scope.formCreateEvent);
+        	$http.post("../PHP/postNewEventSQL.php", $scope.formCreateEvent)
         	.then(function (response) {
         		console.log(response);
         		if(response.data == 'false') {
