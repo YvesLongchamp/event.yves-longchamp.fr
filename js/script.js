@@ -31,6 +31,9 @@
 	        .when('/register', {
 	        	templateUrl: 'templates-html/formToNewUser.html'
 	        })
+	        .when('/settlement', {
+	        	templateUrl: 'templates-html/settlement.html'
+	        })
 	        .otherwise({
 	        	redirectTo : '/home'
 	        })

@@ -8,7 +8,7 @@
     $servername = "db624774209.db.1and1.com";
     $database   = "db624774209";
     $username = "dbo624774209";
-    $password = "loliBanane72";
+    $password = "Not my password D:";
     
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
