@@ -345,7 +345,7 @@
     app.controller('userController', ['$scope', '$cookies', '$window', '$routeParams', '$http', 
     	function($scope, $cookies, $window, $routeParams, $http) {
     	$scope.userId = $routeParams.userId;
-    	$http.post("../PHP/getInformationUsersSQL.php",{pseudo : $scope.userId}) //Temporary thing
+    	$http.get("../PHP/getInformationUsersSQL.php?pseudo=" + $scope.userId)
     	.then(
     		function successCallBack(response) {
     			$scope.userInfo = response.data;

@@ -2,7 +2,7 @@
 // getting the data from angular.
     $postdata = file_get_contents("php://input");
     $parameters = json_decode($postdata,true);
-    $pseudo = $parameters["pseudo"];
+    $pseudo = $_GET['pseudo'];
 
 // Connexion Data.
     $servername = "db624774209.db.1and1.com";
