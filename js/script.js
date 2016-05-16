@@ -117,6 +117,20 @@
         	})
         };
 
+        $scope.deleteEvent = function(indexDelete) {
+        	$scope.showDelete = true;
+        	$scope.deleteModel = $scope.eventsByUser_DB[indexDelete];
+        };
+
+        $scope.deleteForReal = function() {
+        	console.log($scope.deleteModel);
+        	$http.delete("../PHP/deleteEventSQL.php", {data : $scope.deleteModel})
+        	.then(function (response) {
+        		console.log(response);
+        		$window.location.reload();
+        	})
+        };
+
         $scope.update = function(indexUpdate) {
         	$scope.showUpdate = true;
         	$scope.updateModel = $scope.eventsByUser_DB[indexUpdate];
@@ -331,8 +345,7 @@
     app.controller('userController', ['$scope', '$cookies', '$window', '$routeParams', '$http', 
     	function($scope, $cookies, $window, $routeParams, $http) {
     	$scope.userId = $routeParams.userId;
-
-    	$http.post("../PHP/getInformationUsersSQL.php", {pseudo : $scope.userId})
+    	$http.post("../PHP/getInformationUsersSQL.php",{pseudo : $scope.userId}) //Temporary thing
     	.then(
     		function successCallBack(response) {
     			$scope.userInfo = response.data;
