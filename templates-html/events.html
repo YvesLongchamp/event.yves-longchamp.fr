@@ -6,7 +6,9 @@
           <th>Availability</th>
           <th>When ?</th>
           <th>Where ?</th>
+          <th>Gamers</th>
           <th>Description</th>
+          <th>More Information</th>
         </tr>
       </thead>
       <tbody>
@@ -15,6 +17,7 @@
             <td> {{x.availability}} </td>
             <td> {{x.beginning_date}} </td>
             <td> {{x.location}} </td>
+            <td ng-repeat="users in getEventsCtrl.getUsers(x)">{{users_in_event_DB.{{x.name}}.pseudo}}</td>
             <td> {{x.description}} </td>
             <td>
                  <a href="#/events/{{x.name}}" class="btn btn-info">
