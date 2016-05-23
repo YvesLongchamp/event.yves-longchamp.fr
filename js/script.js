@@ -57,10 +57,11 @@
 			$scope.events_DB = response.data;
 		});
 		this.getUsers = function(nameOfTheEvent) {
-			$http.get("../PHP/getUsersForAnEventSQL.php?name=" + nameOfTheEvent.name)
+			console.log(nameOfTheEvent);
+			$http.get("../PHP/getUsersForAnEventSQL.php?name=" + nameOfTheEvent)
 			.then(function (response) {
 				console.log(response);
-				$scope.users_in_event_DB.nameOfTheEvent = response.data;
+				$scope.users_in_event_DB = response.data;
 			})
 		};
 

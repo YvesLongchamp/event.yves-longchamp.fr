@@ -12,18 +12,24 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="x in events_DB track by $index">
-            <td>{{x.name}}</td>
-            <td> {{x.availability}} </td>
-            <td> {{x.beginning_date}} </td>
-            <td> {{x.location}} </td>
-            <td ng-repeat="users in getEventsCtrl.getUsers(x)">{{users_in_event_DB.{{x.name}}.pseudo}}</td>
-            <td> {{x.description}} </td>
-            <td>
-                 <a href="#/events/{{x.name}}" class="btn btn-info">
-                <span class="glyphicon glyphicon-info-sign"></span> </a>
-            </td>
-        </tr>
+        <div ng-repeat="x in events_DB track by $index">
+            <tr>
+                <td>{{x.name}}</td>
+                <td> {{x.availability}} </td>
+                <td> {{x.beginning_date}} </td>
+                <td> {{x.location}} </td>
+                <td>
+                  <!--  <div ng-repeat="users in getEventsCtrl.getUsers(x.name)">
+                        {{users.pseudo}}
+                    </div> -->
+                </td>
+                <td> {{x.description}} </td>
+                <td>
+                     <a href="#/events/{{x.name}}" class="btn btn-info">
+                    <span class="glyphicon glyphicon-info-sign"></span> </a>
+                </td>
+            </tr>
+        </div>
       </tbody>
     </table>
 </div>
