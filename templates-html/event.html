@@ -4,6 +4,11 @@
 		<h3>The starting date is  {{reponseEvent[0].beginning_date}}</h3>
 		<h3>The ending date is {{reponseEvent[0].ending_date}}</h3>
 		<h4> Description : {{reponseEvent[0].description}}</h4>
+		<h4> Who is going to come ? 
+			<div ng-repeat="user in users_in_event_DB">
+				{{user.pseudo}}
+			</div>
+		</h4>
 		<button class="btn btn-success" ng-show="isEngaged"><span></span> Already engaged !</button>
 		<button class="btn btn-danger" ng-show="isEngaged" ng-click="eventCtrl.cancel()"><span></span> Cancel</button>
 		<button class="btn btn-info" ng-hide="isEngaged" ng-click="eventCtrl.enrol(eventId)"><span></span> Enrol !</button>

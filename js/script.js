@@ -52,26 +52,15 @@
 
 	app.controller('getEventsController', [ '$scope', '$http', '$window', '$cookies', function($scope, $http, $window, $cookies) {
 		$http.get("../PHP/getEventsSQL.php")
-		.then(function (response) {
-			console.log(response);
-			$scope.events_DB = response.data;
+		.then(function (responseEvents) {
+			$scope.events_DB = responseEvents.data;
 		});
-		this.getUsers = function(nameOfTheEvent) {
-			console.log(nameOfTheEvent);
-			$http.get("../PHP/getUsersForAnEventSQL.php?name=" + nameOfTheEvent)
-			.then(function (response) {
-				console.log(response);
-				$scope.users_in_event_DB = response.data;
-			})
-		};
-
 	}]);
 
 
 	app.controller('getEventsByUserController',['$scope', '$cookies', '$window','$routeParams','$http',
 		function($scope, $cookies, $window, $routeParams, $http) {
  		$scope.userId = $routeParams.userId;
- 		console.log($scope.userId);
  		$scope.formCreateEvent = {
  			name: "",
  			availability: null,
@@ -85,7 +74,6 @@
 		$http.post("../PHP/getEventsByUserSQL.php",{pseudo : $scope.userId})
 			.then(function (response) {
 			$scope.eventsByUser_DB = response.data;
-			console.log($scope.eventsByUser_DB);
 		});
 
 		this.isConnected = function() {
@@ -94,7 +82,6 @@
             .then(
                 function succesCallBack(response) {
                     $scope.response = response.data;
-                    console.log($scope.response);
                     if($scope.response == 'false' || $scope.response == '') {
                     	$cookies.remove("AYBABYU");
                         $window.location.href = '#/home';
@@ -117,10 +104,8 @@
         };
 
         this.newEvent = function() {
-        	console.log($scope.formCreateEvent);
         	$http.post("../PHP/postNewEventSQL.php", $scope.formCreateEvent)
         	.then(function (response) {
-        		console.log(response);
         		if(response.data == 'false') {
         			$window.alert("The event already exist.");
         		}
@@ -133,10 +118,8 @@
         };
 
         $scope.deleteForReal = function() {
-        	console.log($scope.deleteModel);
         	$http.delete("../PHP/deleteEventSQL.php", {data : $scope.deleteModel})
         	.then(function (response) {
-        		console.log(response);
         		$window.location.reload();
         	})
         };
@@ -144,14 +127,11 @@
         $scope.update = function(indexUpdate) {
         	$scope.showUpdate = true;
         	$scope.updateModel = $scope.eventsByUser_DB[indexUpdate];
-        	console.log($scope.updateModel);
         };
 
         this.updateEvent = function() {
-        	console.log($scope.updateModel);
         	$http.put("../PHP/postUpdateEventSQL.php", $scope.updateModel)
         	.then(function (response) {
-        		console.log(response);
         		$window.location.reload();
         	})
         }
@@ -262,6 +242,11 @@
 		$scope.isEngaged = false;
 		$scope.hasACookie = false;
 
+		$http.get("../PHP/getUsersForAnEventSQL.php?name=" + $scope.eventId)
+		.then(function (response) {
+			$scope.users_in_event_DB = response.data;
+		});
+
 	    $http.post("../PHP/checkEventSQL.php",{name: $scope.eventId})
 			    .then(
 				function successCallBack(response){
@@ -271,15 +256,11 @@
 				});
 
 	 	        $scope.isEnroled = function (nameOfEvent) {
-	 	        	console.log("Appel isEnroled");
-	 	        	console.log($scope.hasACookie);
-	 	        	console.log($scope.cookieUser.pseudo);
             		if($scope.hasACookie) {
 		                $http.post("../PHP/checkingEngageSQL.php",{name : nameOfEvent, pseudo : $scope.cookieUser.pseudo})
 		            	.then(
 		                function succesCallBack(response) {
 		                    $scope.reponseForCookie = response.data;
-		                    console.log($scope.reponseForCookie);
 		                    if($scope.reponseForCookie == "true") {
 		                        $scope.isEngaged = true;
 		                    } else {
@@ -309,7 +290,6 @@
                     } else {
                     	$scope.hasACookie = true;
                         $scope.cookieUser.pseudo = $scope.reponse;
-                        console.log($scope.cookieUser.pseudo);
                         $scope.isEnroled($scope.eventId);
                     	}
 
@@ -318,7 +298,6 @@
                 ,function errorCallBack(response){
                     
                });
-            console.log($scope.hasACookie);
 		};
 
 
@@ -359,7 +338,6 @@
     	.then(
     		function successCallBack(response) {
     			$scope.userInfo = response.data;
-    			console.log($scope.userInfo);
     		},
     		function errorCallBack(response) {
     			console.log("Something bad happened :(");

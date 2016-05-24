@@ -6,30 +6,21 @@
           <th>Availability</th>
           <th>When ?</th>
           <th>Where ?</th>
-          <th>Gamers</th>
           <th>Description</th>
-          <th>More Information</th>
         </tr>
       </thead>
       <tbody>
-        <div ng-repeat="x in events_DB track by $index">
-            <tr>
+            <tr ng-repeat="x in events_DB track by $index">
                 <td>{{x.name}}</td>
                 <td> {{x.availability}} </td>
                 <td> {{x.beginning_date}} </td>
                 <td> {{x.location}} </td>
-                <td>
-                  <!--  <div ng-repeat="users in getEventsCtrl.getUsers(x.name)">
-                        {{users.pseudo}}
-                    </div> -->
-                </td>
                 <td> {{x.description}} </td>
                 <td>
                      <a href="#/events/{{x.name}}" class="btn btn-info">
                     <span class="glyphicon glyphicon-info-sign"></span> </a>
                 </td>
             </tr>
-        </div>
       </tbody>
     </table>
 </div>
